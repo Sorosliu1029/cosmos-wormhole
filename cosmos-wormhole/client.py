@@ -9,6 +9,7 @@ class Client:
         self.client: httpx.AsyncClient | None = None
         self.token_manager = TokenManager()
         self.subscription: Subscription
+        self.episode: Episode
 
     async def login(self) -> None:
         headers = self.token_manager.get_token()
@@ -41,6 +42,7 @@ class Client:
             self.token_manager.periodic_refresh_token(self.client, 60 * 20)
         )
         self.subscription = Subscription(self.client)
+        self.episode = Episode(self.client)
 
 
 if __name__ == "__main__":
@@ -52,5 +54,7 @@ if __name__ == "__main__":
 
         async for podcast in c.subscription.list():
             print(podcast)
+            async for episode in c.episode.list({"pid": podcast.id}):
+                print(f"\t{episode}")
 
     asyncio.run(main())

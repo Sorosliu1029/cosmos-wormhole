@@ -1,3 +1,3 @@
 class Base:
-    def __init__(self, id: str, **kwargs):
+    def __init__(self, id: str):
         self.id = id
