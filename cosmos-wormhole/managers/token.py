@@ -40,15 +40,26 @@ class TokenManager:
         with open(self.token_path, "w", encoding="utf-8") as f:
             json.dump(tokens, f, ensure_ascii=False, indent=4)
 
-    async def refresh_token(self, client: httpx.AsyncClient) -> None:
+    def delete_token(self) -> None:
+        if os.path.exists(self.token_path):
+            os.remove(self.token_path)
+
+    async def refresh_token(self, client: httpx.AsyncClient) -> tuple[str, str]:
+        resp = await client.post("/app_auth_tokens.refresh")
+        access_token = resp.headers.get("X-Jike-Access-Token")
+        refresh_token = resp.headers.get("X-Jike-Refresh-Token")
+        return access_token, refresh_token
+
+    async def periodic_refresh_token(
+        self, client: httpx.AsyncClient, interval: int
+    ) -> None:
         if not os.path.exists(self.token_path):
             return
         while True:
-            await asyncio.sleep(60 * 20)  # 20 minutes
-            resp = await client.post("/app_auth_tokens.refresh")
-            access_token = resp.headers.get("X-Jike-Access-Token")
-            refresh_token = resp.headers.get("X-Jike-Refresh-Token")
+            await asyncio.sleep(interval)
+            access_token, refresh_token = await self.refresh_token(client)
             if access_token and refresh_token:
+                # TODO: notify client to update its headers
                 self.save_token(
                     access_token=access_token,
                     refresh_token=refresh_token,
