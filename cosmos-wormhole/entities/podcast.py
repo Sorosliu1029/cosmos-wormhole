@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Any
 
 from .base import Base
+from .user import User
 
 
 class Podcast(Base):
@@ -34,8 +35,10 @@ class Podcast(Base):
             if latestEpisodePubDate
             else None
         )
-        # TODO: podcaster to user
-        self.podcasters = podcasters
+        self.podcasters = [
+            User(**podcaster) if isinstance(podcaster, dict) else podcaster
+            for podcaster in podcasters
+        ]
         # set rest keys as attributes
         for key, value in kwargs.items():
             setattr(self, key, value)
