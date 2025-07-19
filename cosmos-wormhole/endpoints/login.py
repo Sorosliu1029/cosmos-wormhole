@@ -21,7 +21,7 @@ class Login:
         self.id, url = data.values()
         return url
 
-    async def _check_login(self) -> httpx.Headers | None:
+    async def _check_login(self) -> dict | None:
         resp = await self.client.post("/qrcode/login", json={"id": self.id})
         data = resp.raise_for_status().json()
         if data["status"] != "USED":
@@ -30,11 +30,12 @@ class Login:
         access_token = resp.headers.get("X-Jike-Access-Token")
         refresh_token = resp.headers.get("X-Jike-Refresh-Token")
         assert access_token and refresh_token, "Login failed, tokens not found."
-        return httpx.Headers(
-            {"X-Jike-Access-Token": access_token, "X-Jike-Refresh-Token": refresh_token}
-        )
+        return {
+            "X-Jike-Access-Token": access_token,
+            "X-Jike-Refresh-Token": refresh_token,
+        }
 
-    async def login(self) -> httpx.Headers:
+    async def login(self) -> dict:
         url = await self._get_login_url()
         qr = qrcode.QRCode()
         qr.add_data(url)
