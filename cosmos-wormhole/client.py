@@ -4,7 +4,7 @@ from manager import *
 
 
 class Client:
-    def __init__(self, base_url: str = "https://api.xiaoyuzhou.com/v1") -> None:
+    def __init__(self, base_url: str = "https://api.xiaoyuzhoufm.com") -> None:
         self.base_url = base_url
         self.client: httpx.AsyncClient | None = None
         self.token_manager = TokenManager()
@@ -19,6 +19,8 @@ class Client:
             )
         self.client = httpx.AsyncClient(base_url=self.base_url, headers=headers)
 
+        asyncio.create_task(self.token_manager.refresh_token(self.client))
+
 
 if __name__ == "__main__":
     import asyncio
@@ -26,5 +28,7 @@ if __name__ == "__main__":
     async def main():
         c = Client()
         await c.login()
+
+        await asyncio.sleep(10)  # Wait for the token refresh task to start
 
     asyncio.run(main())

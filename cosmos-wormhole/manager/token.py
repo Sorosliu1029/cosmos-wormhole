@@ -1,6 +1,9 @@
+import asyncio
 import json
 import os
 import time
+
+import httpx
 
 
 class TokenManager:
@@ -36,3 +39,17 @@ class TokenManager:
         os.makedirs(os.path.dirname(self.token_path), exist_ok=True)
         with open(self.token_path, "w", encoding="utf-8") as f:
             json.dump(tokens, f, ensure_ascii=False, indent=4)
+
+    async def refresh_token(self, client: httpx.AsyncClient) -> None:
+        if not os.path.exists(self.token_path):
+            return
+        while True:
+            await asyncio.sleep(60 * 20)  # 20 minutes
+            resp = await client.post("/app_auth_tokens.refresh")
+            access_token = resp.headers.get("X-Jike-Access-Token")
+            refresh_token = resp.headers.get("X-Jike-Refresh-Token")
+            if access_token and refresh_token:
+                self.save_token(
+                    access_token=access_token,
+                    refresh_token=refresh_token,
+                )
