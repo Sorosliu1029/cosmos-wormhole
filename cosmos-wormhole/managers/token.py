@@ -6,6 +6,11 @@ import time
 import httpx
 
 
+class Token:
+    access_key = "X-Jike-Access-Token"
+    refresh_key = "X-Jike-Refresh-Token"
+
+
 class TokenManager:
     def __init__(self):
         self.token_path = os.path.join(
@@ -26,8 +31,8 @@ class TokenManager:
         refresh_token = tokens.get("refreshToken")
         assert access_token and refresh_token, "Tokens not found."
         return {
-            "X-Jike-Access-Token": access_token,
-            "X-Jike-Refresh-Token": refresh_token,
+            Token.access_key: access_token,
+            Token.refresh_key: refresh_token,
         }
 
     def save_token(self, access_token: str, refresh_token: str) -> None:
@@ -46,8 +51,8 @@ class TokenManager:
 
     async def refresh_token(self, client: httpx.AsyncClient) -> tuple[str, str]:
         resp = await client.post("/app_auth_tokens.refresh")
-        access_token = resp.headers.get("X-Jike-Access-Token")
-        refresh_token = resp.headers.get("X-Jike-Refresh-Token")
+        access_token = resp.headers.get(Token.access_key)
+        refresh_token = resp.headers.get(Token.refresh_key)
         return access_token, refresh_token
 
     async def periodic_refresh_token(

@@ -2,6 +2,7 @@ import asyncio
 
 import httpx
 import qrcode
+from managers import Token
 
 
 class Login:
@@ -21,28 +22,25 @@ class Login:
         self.id, url = data.values()
         return url
 
-    async def _check_login(self) -> dict | None:
+    async def _check_login(self) -> tuple[str, str] | None:
         resp = await self.client.post("/qrcode/login", json={"id": self.id})
         data = resp.raise_for_status().json()
         if data["status"] != "USED":
             return None
 
-        access_token = resp.headers.get("X-Jike-Access-Token")
-        refresh_token = resp.headers.get("X-Jike-Refresh-Token")
+        access_token = resp.headers.get(Token.access_key)
+        refresh_token = resp.headers.get(Token.refresh_key)
         assert access_token and refresh_token, "Login failed, tokens not found."
-        return {
-            "X-Jike-Access-Token": access_token,
-            "X-Jike-Refresh-Token": refresh_token,
-        }
+        return (access_token, refresh_token)
 
-    async def login(self) -> dict:
+    async def login(self) -> tuple[str, str]:
         url = await self._get_login_url()
         qr = qrcode.QRCode()
         qr.add_data(url)
         qr.print_tty()
 
         headers = await self._check_login()
-        while not headers:
+        while headers is None:
             await asyncio.sleep(1)
             headers = await self._check_login()
 

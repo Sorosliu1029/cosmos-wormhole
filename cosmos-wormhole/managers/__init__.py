@@ -1,3 +1,3 @@
-from .token import TokenManager
+from .token import Token, TokenManager
 
-__all__ = ["TokenManager"]
+__all__ = ["TokenManager", "Token"]

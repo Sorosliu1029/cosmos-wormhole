@@ -15,11 +15,11 @@ class Client:
         headers = self.token_manager.get_token()
         # first time or no token stored, try to login
         if not headers:
-            headers = await Login().login()
+            access_token, refresh_token = await Login().login()
             self.token_manager.save_token(
-                access_token=headers["X-Jike-Access-Token"],
-                refresh_token=headers["X-Jike-Refresh-Token"],
+                access_token=access_token, refresh_token=refresh_token
             )
+            headers = {Token.access_key: access_token, Token.refresh_key: refresh_token}
 
         self.client = httpx.AsyncClient(base_url=self.base_url, headers=headers)
         # refresh tokens in case of access token expired
@@ -28,10 +28,7 @@ class Client:
                 self.client
             )
             self.client.headers.update(
-                {
-                    "X-Jike-Access-Token": access_token,
-                    "X-Jike-Refresh-Token": refresh_token,
-                }
+                {Token.access_key: access_token, Token.refresh_key: refresh_token}
             )
 
         self.after_login()
@@ -56,5 +53,6 @@ if __name__ == "__main__":
             print(podcast)
             async for episode in c.episode.list({"pid": podcast.id}):
                 print(f"\t{episode}")
+            return
 
     asyncio.run(main())
