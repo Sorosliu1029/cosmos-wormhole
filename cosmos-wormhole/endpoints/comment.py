@@ -2,10 +2,10 @@ from typing import AsyncGenerator, Literal
 
 import entities
 
-from .base import Base
+from .base import ListBase
 
 
-class Comment(Base[entities.Comment]):
+class Comment(ListBase[entities.Comment]):
     entity_class = entities.Comment
     endpoint = "/v1/comment"
     list_body = {
@@ -21,7 +21,7 @@ class Comment(Base[entities.Comment]):
         )
 
 
-class Reply(Base[entities.Comment]):
+class Reply(ListBase[entities.Comment]):
     entity_class = entities.Comment
     endpoint = "/v1/comment"
     list_body = {}

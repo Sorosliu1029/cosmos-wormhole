@@ -3,7 +3,11 @@ from typing import Any, AsyncGenerator, Type
 import httpx
 
 
-class Base[E]:
+def json_to_entity[E](entity_class: Type[E], data: Any) -> E:
+    return data if isinstance(data, entity_class) else entity_class(**data)
+
+
+class ListBase[E]:
     entity_class: Type[E]
     endpoint: str
     list_suffix = "list"
@@ -12,7 +16,7 @@ class Base[E]:
     def __init__(self, client: httpx.AsyncClient) -> None:
         self.client = client
 
-    def _extract_data(self, json_resp: dict) -> list[dict]:
+    def _extract_data(self, json_resp: dict) -> list[Any]:
         return json_resp.get("data", [])
 
     async def _fetch_entities(
@@ -26,12 +30,8 @@ class Base[E]:
         )
         json_resp = resp.raise_for_status().json()
         entities = [
-            (
-                entity
-                if isinstance(entity, self.entity_class)
-                else self.entity_class(**entity)
-            )
-            for entity in self._extract_data(json_resp)
+            json_to_entity(self.entity_class, entity_data)
+            for entity_data in self._extract_data(json_resp)
         ]
         load_more_key = json_resp.get("loadMoreKey")
         return entities, load_more_key
@@ -44,3 +44,22 @@ class Base[E]:
             entities, load_more_key = await self._fetch_entities(query, load_more_key)
             for entity in entities:
                 yield entity
+
+
+class GetBase[E]:
+    entity_class: Type[E]
+    endpoint: str
+    get_suffix = "get"
+    get_params_key: str
+
+    def __init__(self, client: httpx.AsyncClient) -> None:
+        self.client = client
+
+    async def get(self, entity_id: str) -> E:
+        resp = await self.client.get(
+            f"{self.endpoint}/{self.get_suffix}",
+            params={self.get_params_key: entity_id},
+        )
+        json_resp = resp.raise_for_status().json()
+        entity_data = json_resp.get("data")
+        return json_to_entity(self.entity_class, entity_data)

@@ -1,9 +1,7 @@
-import entities
-
-from .base import Base
+from .base import ListBase
 
 
-class Playlist(Base[str]):
+class Playlist(ListBase[str]):
     entity_class = str
     endpoint = "/v1/playlist"
     list_suffix = "pull"

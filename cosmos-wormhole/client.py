@@ -23,6 +23,7 @@ class Client:
         self.comment: Comment
         self.reply: Reply
         self.playlist: Playlist
+        self.podcast: Podcast
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -30,6 +31,7 @@ class Client:
         self.comment = Comment(self.client)
         self.reply = Reply(self.client)
         self.playlist = Playlist(self.client)
+        self.podcast = Podcast(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()
@@ -44,6 +46,8 @@ class Client:
         await self.client.aclose()
 
     def _update_token(self, access_token: str, refresh_token: str) -> None:
+        if not access_token or not refresh_token:
+            raise ValueError("Access token and refresh token cannot be empty.")
         self.token_manager.save_token(
             access_token=access_token, refresh_token=refresh_token
         )
@@ -54,7 +58,11 @@ class Client:
     async def login(self) -> None:
         headers = self.token_manager.get_token()
 
-        if not headers:  # first time or no token stored, try to login
+        if (
+            not headers
+            or not headers.get(Token.access_key)
+            or not headers.get(Token.refresh_key)
+        ):  # first time or no token stored or token invalid, try to login
             access_token, refresh_token = await Login().login()
             self._update_token(access_token, refresh_token)
         else:  # refresh tokens in case of access token expired
@@ -89,11 +97,15 @@ async def main():
     c = Client()
     await c.login()
 
+    pid = None
+    eid = None
     async for podcast in c.subscription.list():
         print(podcast)
+        pid = podcast.id
         if podcast.title == "史蒂夫说":
             async for episode in c.episode.list_by_podcast(podcast.id):
                 print(f"\t{episode}")
+                eid = episode.id
                 async for comment in c.comment.list_by_episode(episode.id, "HOT"):
                     print(f"\t\t{comment}")
                     async for reply in c.reply.list_by_comment(comment.id, "SMART"):
@@ -101,6 +113,13 @@ async def main():
                     break
                 break
             break
+
+    if pid:
+        podcast = await c.podcast.get(pid)
+        print(podcast)
+    if eid:
+        episode = await c.episode.get(eid)
+        print(episode)
 
     await c.close()
 
