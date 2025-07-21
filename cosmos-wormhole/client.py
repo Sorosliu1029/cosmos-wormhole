@@ -16,7 +16,7 @@ class Client:
             headers={"user-agent": self.user_agent, "x-jike-device-id": self.device_id},
         )
         self.token_manager = TokenManager()
-        self.token_update_queue = asyncio.Queue(2)
+        self.token_update_queue = asyncio.Queue(1)
         self.token_update_producer: asyncio.Task
         self.token_update_consumer: asyncio.Task
 
@@ -93,7 +93,7 @@ class Client:
     def after_login(self) -> None:
         self.token_update_producer = asyncio.create_task(
             self.token_manager.periodic_refresh_token(
-                self.client, 60 * 1, self.token_update_queue
+                self.client, 60 * 20, self.token_update_queue
             )  # every 20 minutes
         )
         self.token_update_consumer = asyncio.create_task(self._listen_on_token_update())
