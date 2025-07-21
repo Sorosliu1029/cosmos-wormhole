@@ -8,10 +8,12 @@ from managers import *
 class Client:
     # TODO: read version
     user_agent = "CosmosWormhole/0.0.1"
+    device_id = "cosmos-wormhole"
 
     def __init__(self, base_url: str = "https://api.xiaoyuzhoufm.com") -> None:
         self.client = httpx.AsyncClient(
-            base_url=base_url, headers={"user-agent": self.user_agent}
+            base_url=base_url,
+            headers={"user-agent": self.user_agent, "x-jike-device-id": self.device_id},
         )
         self.token_manager = TokenManager()
         self.token_update_queue = asyncio.Queue(2)
@@ -24,6 +26,7 @@ class Client:
         self.reply: Reply
         self.playlist: Playlist
         self.podcast: Podcast
+        self.inbox: Inbox
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -32,6 +35,7 @@ class Client:
         self.reply = Reply(self.client)
         self.playlist = Playlist(self.client)
         self.podcast = Podcast(self.client)
+        self.inbox = Inbox(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()
@@ -120,6 +124,13 @@ async def main():
     if eid:
         episode = await c.episode.get(eid)
         print(episode)
+
+    cnt = 0
+    async for episode in c.inbox.list():
+        print(episode)
+        cnt += 1
+        if cnt >= 5:
+            break
 
     await c.close()
 

@@ -8,9 +8,7 @@ from .base import ListBase
 class Comment(ListBase[entities.Comment]):
     entity_class = entities.Comment
     endpoint = "/v1/comment"
-    list_body = {
-        "limit": 20,
-    }
+    list_body = {"limit": 20}
     list_suffix = "list-primary"
 
     def list_by_episode(

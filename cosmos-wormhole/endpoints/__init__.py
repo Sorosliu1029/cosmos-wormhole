@@ -1,5 +1,6 @@
 from .comment import Comment, Reply
 from .episode import Episode
+from .inbox import Inbox
 from .login import Login
 from .playlist import Playlist
 from .podcast import Podcast
@@ -13,4 +14,5 @@ __all__ = [
     "Reply",
     "Playlist",
     "Podcast",
+    "Inbox",
 ]
