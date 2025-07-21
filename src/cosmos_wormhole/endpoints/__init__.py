@@ -7,6 +7,7 @@ from .login import Login
 from .playlist import Playlist
 from .podcast import Podcast
 from .profile import Profile
+from .search import EpisodeSearch, PodcastSearch, UserSearch
 from .subscription import Subscription
 from .user_relation import Followee, Follower
 
@@ -25,4 +26,7 @@ __all__ = [
     "History",
     "FavoritedEpisode",
     "FavoritedComment",
+    "PodcastSearch",
+    "EpisodeSearch",
+    "UserSearch",
 ]

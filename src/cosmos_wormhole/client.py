@@ -1,10 +1,9 @@
 import asyncio
 
 import httpx
+from __about__ import __version__
 from endpoints import *
 from managers import *
-
-from .__about__ import __version__
 
 
 class Client:
@@ -17,9 +16,9 @@ class Client:
             headers={"user-agent": self.user_agent, "x-jike-device-id": self.device_id},
         )
         self.token_manager = TokenManager()
-        self.token_update_queue = asyncio.Queue(1)
-        self.token_update_producer: asyncio.Task
-        self.token_update_consumer: asyncio.Task
+        self._token_update_queue = asyncio.Queue(1)
+        self._token_update_producer: asyncio.Task
+        self._token_update_consumer: asyncio.Task
 
         self.subscription: Subscription
         self.episode: Episode
@@ -34,6 +33,9 @@ class Client:
         self.history: History
         self.favorited_episode: FavoritedEpisode
         self.favorited_comment: FavoritedComment
+        self.podcast_search: PodcastSearch
+        self.episode_search: EpisodeSearch
+        self.user_search: UserSearch
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -49,10 +51,12 @@ class Client:
         self.history = History(self.client)
         self.favorited_episode = FavoritedEpisode(self.client)
         self.favorited_comment = FavoritedComment(self.client)
+        self.podcast_search = PodcastSearch(self.client)
+        self.episode_search = EpisodeSearch(self.client)
+        self.user_search = UserSearch(self.client)
 
     async def close(self) -> None:
-        # TODO: catch ctrl-c signal
-        await self.token_update_queue.join()
+        await self._token_update_queue.join()
 
         tasks = [self.token_update_producer, self.token_update_consumer]
         for task in tasks:
@@ -90,12 +94,12 @@ class Client:
             )
             self._update_token(access_token, refresh_token)
 
-        self.after_login()
+        self._after_login()
 
-    def after_login(self) -> None:
+    def _after_login(self) -> None:
         self.token_update_producer = asyncio.create_task(
             self.token_manager.periodic_refresh_token(
-                self.client, 60 * 20, self.token_update_queue
+                self.client, 60 * 20, self._token_update_queue
             )  # every 20 minutes
         )
         self.token_update_consumer = asyncio.create_task(self._listen_on_token_update())
@@ -104,9 +108,9 @@ class Client:
     async def _listen_on_token_update(self) -> None:
         try:
             while True:
-                access_token, refresh_token = await self.token_update_queue.get()
+                access_token, refresh_token = await self._token_update_queue.get()
                 self._update_token(access_token, refresh_token)
-                self.token_update_queue.task_done()
+                self._token_update_queue.task_done()
         except asyncio.CancelledError:
             pass
 
@@ -204,6 +208,30 @@ async def main():
     cnt = 0
     async for comment in c.favorited_comment.list():
         print(comment)
+        cnt += 1
+        if cnt >= 5:
+            break
+
+    print("11. Podcast Search:")
+    cnt = 0
+    async for podcast in c.podcast_search.search("即刻"):
+        print(podcast)
+        cnt += 1
+        if cnt >= 5:
+            break
+
+    print("12. Episode Search:")
+    cnt = 0
+    async for episode in c.episode_search.search("小宇宙"):
+        print(episode)
+        cnt += 1
+        if cnt >= 5:
+            break
+
+    print("13. User Search:")
+    cnt = 0
+    async for user in c.user_search.search("播客"):
+        print(user)
         cnt += 1
         if cnt >= 5:
             break
