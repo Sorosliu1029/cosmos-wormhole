@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 
 from .base import Base
 from .user import User
@@ -19,6 +19,7 @@ class Podcast(Base):
         episodeCount: int = 0,
         latestEpisodePubDate: str = "",
         podcasters: list[dict[str, Any]] = [],
+        subscritionStatus: Literal["ON", "OFF"] = "OFF",
         **kwargs,
     ):
         super().__init__(id=pid)
@@ -39,6 +40,7 @@ class Podcast(Base):
             User(**podcaster) if isinstance(podcaster, dict) else podcaster
             for podcaster in podcasters
         ]
+        self.subscription_status = subscritionStatus
         # set rest keys as attributes
         for key, value in kwargs.items():
             setattr(self, key, value)
