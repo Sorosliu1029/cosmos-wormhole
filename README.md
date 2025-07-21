@@ -1,2 +1,1 @@
-# cosmos-wormhole
-🕳️ Link everything in cosmos
+# cosmos-wormhole 宇宙虫洞
