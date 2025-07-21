@@ -87,11 +87,9 @@ async def main():
 
     async for podcast in c.subscription.list():
         print(podcast)
-        async for episode in c.episode.list({"pid": podcast.id}):
+        async for episode in c.episode.list_by_podcast(podcast.id):
             print(f"\t{episode}")
-            async for comment in c.comment.list(
-                {"order": "HOT", "owner": {"type": "EPISODE", "id": episode.id}}
-            ):
+            async for comment in c.comment.list_by_episode(episode.id, "HOT"):
                 print(f"\t\t{comment}")
             break
         break
