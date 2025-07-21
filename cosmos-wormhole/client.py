@@ -29,6 +29,7 @@ class Client:
         self.inbox: Inbox
         self.profile: Profile
         self.followee: Followee
+        self.follower: Follower
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -40,6 +41,7 @@ class Client:
         self.inbox = Inbox(self.client)
         self.profile = Profile(self.client)
         self.followee = Followee(self.client)
+        self.follower = Follower(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()
@@ -105,6 +107,7 @@ async def main():
     c = Client()
     await c.login()
 
+    print("1. Subscription:")
     pid = None
     eid = None
     podcast_uid = None
@@ -124,6 +127,7 @@ async def main():
                 break
             break
 
+    print("2. Podcaast/Episode get:")
     if pid:
         podcast = await c.podcast.get(pid)
         print(podcast)
@@ -131,6 +135,7 @@ async def main():
         episode = await c.episode.get(eid)
         print(episode)
 
+    print("3. Inbox:")
     cnt = 0
     async for episode in c.inbox.list():
         print(episode)
@@ -138,15 +143,34 @@ async def main():
         if cnt >= 5:
             break
 
+    print("4. Playlist:")
+    cnt = 0
+    async for playlist in c.playlist.list():
+        print(playlist)
+        cnt += 1
+        if cnt >= 5:
+            break
+
+    print("5. Profile:")
     my_profile = await c.profile.get()
     print(my_profile)
 
     if podcast_uid:
+        print("5.1 Podcaster Profile:")
         podcaster = await c.profile.get(podcast_uid)
         print(podcaster)
 
+    print("6. Followee:")
     cnt = 0
     async for user in c.followee.list_following(my_profile.id):
+        print(user)
+        cnt += 1
+        if cnt >= 5:
+            break
+
+    print("7. Follower:")
+    cnt = 0
+    async for user in c.follower.list_follower(my_profile.id):
         print(user)
         cnt += 1
         if cnt >= 5:
