@@ -1,5 +1,7 @@
 from .comment import Comment, Reply
 from .episode import Episode
+from .favorite import FavoritedEpisode
+from .history import History
 from .inbox import Inbox
 from .login import Login
 from .playlist import Playlist
@@ -20,4 +22,6 @@ __all__ = [
     "Profile",
     "Followee",
     "Follower",
+    "History",
+    "FavoritedEpisode",
 ]
