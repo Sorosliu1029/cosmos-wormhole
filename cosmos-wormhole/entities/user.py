@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Literal
 
 from .base import Base
 
@@ -11,6 +11,7 @@ class User(Base):
         avatar: dict[str, Any] = {},
         bio: str = "",
         gender: str = "",
+        relation: Literal["STRANGE", "FOLLOWING"] = "STRANGE",
         **kwargs,
     ):
         super().__init__(id=uid)
@@ -18,6 +19,7 @@ class User(Base):
         self.avatar = avatar
         self.bio = bio
         self.gender = gender
+        self.relation = relation
         # set rest keys as attributes
         for key, value in kwargs.items():
             setattr(self, key, value)

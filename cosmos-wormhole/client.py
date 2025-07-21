@@ -30,6 +30,7 @@ class Client:
         self.profile: Profile
         self.followee: Followee
         self.follower: Follower
+        self.history: History
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -42,6 +43,7 @@ class Client:
         self.profile = Profile(self.client)
         self.followee = Followee(self.client)
         self.follower = Follower(self.client)
+        self.history = History(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()
@@ -174,6 +176,14 @@ async def main():
         print(user)
         cnt += 1
         if cnt >= 5:
+            break
+
+    print("8. History:")
+    cnt = 0
+    async for episode in c.history.list():
+        print(episode)
+        cnt += 1
+        if cnt >= 50:
             break
 
     await c.close()
