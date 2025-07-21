@@ -4,6 +4,7 @@ from .inbox import Inbox
 from .login import Login
 from .playlist import Playlist
 from .podcast import Podcast
+from .profile import Profile
 from .subscription import Subscription
 
 __all__ = [
@@ -15,4 +16,5 @@ __all__ = [
     "Playlist",
     "Podcast",
     "Inbox",
+    "Profile",
 ]

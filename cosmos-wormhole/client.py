@@ -27,6 +27,7 @@ class Client:
         self.playlist: Playlist
         self.podcast: Podcast
         self.inbox: Inbox
+        self.profile: Profile
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -36,6 +37,7 @@ class Client:
         self.playlist = Playlist(self.client)
         self.podcast = Podcast(self.client)
         self.inbox = Inbox(self.client)
+        self.profile = Profile(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()
@@ -103,10 +105,12 @@ async def main():
 
     pid = None
     eid = None
+    podcast_uid = None
     async for podcast in c.subscription.list():
         print(podcast)
-        pid = podcast.id
         if podcast.title == "史蒂夫说":
+            pid = podcast.id
+            podcast_uid = podcast.podcasters[0].id if podcast.podcasters else None
             async for episode in c.episode.list_by_podcast(podcast.id):
                 print(f"\t{episode}")
                 eid = episode.id
@@ -131,6 +135,13 @@ async def main():
         cnt += 1
         if cnt >= 5:
             break
+
+    my_profile = await c.profile.get()
+    print(my_profile)
+
+    if podcast_uid:
+        podcaster = await c.profile.get(podcast_uid)
+        print(podcaster)
 
     await c.close()
 

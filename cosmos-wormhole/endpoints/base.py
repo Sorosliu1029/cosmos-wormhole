@@ -56,10 +56,10 @@ class GetBase[E](Base[E]):
     def __init__(self, client: httpx.AsyncClient) -> None:
         self.client = client
 
-    async def get(self, entity_id: str) -> E:
+    async def get(self, entity_id: str | None = None) -> E:
         resp = await self.client.get(
             f"{self.endpoint}/{self.get_suffix}",
-            params={self.get_params_key: entity_id},
+            params={self.get_params_key: entity_id} if entity_id else None,
         )
         json_resp = resp.raise_for_status().json()
         entity_data = json_resp.get("data")
