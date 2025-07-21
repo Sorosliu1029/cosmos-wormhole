@@ -32,6 +32,7 @@ class Client:
         self.follower: Follower
         self.history: History
         self.favorited_episode: FavoritedEpisode
+        self.favorited_comment: FavoritedComment
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -46,6 +47,7 @@ class Client:
         self.follower = Follower(self.client)
         self.history = History(self.client)
         self.favorited_episode = FavoritedEpisode(self.client)
+        self.favorited_comment = FavoritedComment(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()
@@ -192,6 +194,14 @@ async def main():
     cnt = 0
     async for episode in c.favorited_episode.list():
         print(episode)
+        cnt += 1
+        if cnt >= 5:
+            break
+
+    print("10. Favorited Comment:")
+    cnt = 0
+    async for comment in c.favorited_comment.list():
+        print(comment)
         cnt += 1
         if cnt >= 5:
             break

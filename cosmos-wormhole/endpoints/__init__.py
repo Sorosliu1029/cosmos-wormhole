@@ -1,6 +1,6 @@
 from .comment import Comment, Reply
 from .episode import Episode
-from .favorite import FavoritedEpisode
+from .favorite import FavoritedComment, FavoritedEpisode
 from .history import History
 from .inbox import Inbox
 from .login import Login
@@ -24,4 +24,5 @@ __all__ = [
     "Follower",
     "History",
     "FavoritedEpisode",
+    "FavoritedComment",
 ]
