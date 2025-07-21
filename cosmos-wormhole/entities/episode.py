@@ -23,6 +23,10 @@ class Episode(Base):
         clapCount: int = 0,
         commentCount: int = 0,
         favoriteCount: int = 0,
+        isPlayed: bool = False,
+        isFinished: bool = False,
+        isPicked: bool = False,
+        isFavorited: bool = False,
         pubDate: str = "",
         podcast: dict = {},
         **kwargs,
@@ -42,6 +46,10 @@ class Episode(Base):
         self.clap_count = clapCount
         self.comment_count = commentCount
         self.favorite_count = favoriteCount
+        self.is_played = isPlayed
+        self.is_finished = isFinished
+        self.is_picked = isPicked
+        self.is_favorited = isFavorited
         self.pub_date = datetime.fromisoformat(pubDate) if pubDate else None
         self.podcast = Podcast(**podcast) if podcast else None
         # set rest keys as attributes

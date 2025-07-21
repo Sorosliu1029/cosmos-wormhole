@@ -60,8 +60,11 @@ class TokenManager:
     ) -> None:
         if not os.path.exists(self.token_path):
             return
-        while True:
-            await asyncio.sleep(interval)
-            access_token, refresh_token = await self.refresh_token(client)
-            if access_token and refresh_token:
-                await queue.put((access_token, refresh_token))
+        try:
+            while True:
+                await asyncio.sleep(interval)
+                access_token, refresh_token = await self.refresh_token(client)
+                if access_token and refresh_token:
+                    await queue.put((access_token, refresh_token))
+        except asyncio.CancelledError:
+            pass

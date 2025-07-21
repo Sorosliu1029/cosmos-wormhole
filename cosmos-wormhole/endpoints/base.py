@@ -4,9 +4,10 @@ import httpx
 
 
 class Base[E]:
-    endpoint: str
-    list_body: dict[str, str | int]
     entity_class: Type[E]
+    endpoint: str
+    list_suffix = "list"
+    list_body: dict[str, str | int]
 
     def __init__(self, client: httpx.AsyncClient) -> None:
         self.client = client
@@ -15,7 +16,7 @@ class Base[E]:
         self, query: dict[str, Any] | None, load_more_key: Any
     ) -> tuple[list[E], Any]:
         resp = await self.client.post(
-            f"{self.endpoint}/list",
+            f"{self.endpoint}/{self.list_suffix}",
             json=self.list_body
             | (query if query else {})
             | ({"loadMoreKey": load_more_key} if load_more_key else {}),
