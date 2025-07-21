@@ -21,11 +21,13 @@ class Client:
         self.subscription: Subscription
         self.episode: Episode
         self.comment: Comment
+        self.playlist: Playlist
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
         self.episode = Episode(self.client)
         self.comment = Comment(self.client)
+        self.playlist = Playlist(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()

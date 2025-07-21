@@ -12,6 +12,9 @@ class Base[E]:
     def __init__(self, client: httpx.AsyncClient) -> None:
         self.client = client
 
+    def _extract_data(self, json_resp: dict) -> list[dict]:
+        return json_resp.get("data", [])
+
     async def _fetch_entities(
         self, query: dict[str, Any] | None, load_more_key: Any
     ) -> tuple[list[E], Any]:
@@ -21,9 +24,16 @@ class Base[E]:
             | (query if query else {})
             | ({"loadMoreKey": load_more_key} if load_more_key else {}),
         )
-        data = resp.raise_for_status().json()
-        entities = [self.entity_class(**entity) for entity in data.get("data", [])]
-        load_more_key = data.get("loadMoreKey")
+        json_resp = resp.raise_for_status().json()
+        entities = [
+            (
+                entity
+                if isinstance(entity, self.entity_class)
+                else self.entity_class(**entity)
+            )
+            for entity in self._extract_data(json_resp)
+        ]
+        load_more_key = json_resp.get("loadMoreKey")
         return entities, load_more_key
 
     async def list(
