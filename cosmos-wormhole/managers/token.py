@@ -56,7 +56,7 @@ class TokenManager:
         return access_token, refresh_token
 
     async def periodic_refresh_token(
-        self, client: httpx.AsyncClient, interval: int
+        self, client: httpx.AsyncClient, interval: int, queue: asyncio.Queue
     ) -> None:
         if not os.path.exists(self.token_path):
             return
@@ -64,8 +64,4 @@ class TokenManager:
             await asyncio.sleep(interval)
             access_token, refresh_token = await self.refresh_token(client)
             if access_token and refresh_token:
-                # TODO: notify client to update its headers
-                self.save_token(
-                    access_token=access_token,
-                    refresh_token=refresh_token,
-                )
+                await queue.put((access_token, refresh_token))

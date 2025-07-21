@@ -9,7 +9,6 @@ class Base[E]:
     entity_class: Type[E]
 
     def __init__(self, client: httpx.AsyncClient) -> None:
-        assert client, "Client must be provided."
         self.client = client
 
     async def _fetch_entities(
@@ -29,7 +28,6 @@ class Base[E]:
     async def list(
         self, query: dict[str, Any] | None = None
     ) -> AsyncGenerator[E, None]:
-        assert self.client, "Client must be initialized."
         load_more_key = {}
         while load_more_key is not None:
             entities, load_more_key = await self._fetch_entities(query, load_more_key)
