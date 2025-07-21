@@ -21,12 +21,14 @@ class Client:
         self.subscription: Subscription
         self.episode: Episode
         self.comment: Comment
+        self.reply: Reply
         self.playlist: Playlist
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
         self.episode = Episode(self.client)
         self.comment = Comment(self.client)
+        self.reply = Reply(self.client)
         self.playlist = Playlist(self.client)
 
     async def close(self) -> None:
@@ -89,12 +91,16 @@ async def main():
 
     async for podcast in c.subscription.list():
         print(podcast)
-        async for episode in c.episode.list_by_podcast(podcast.id):
-            print(f"\t{episode}")
-            async for comment in c.comment.list_by_episode(episode.id, "HOT"):
-                print(f"\t\t{comment}")
+        if podcast.title == "史蒂夫说":
+            async for episode in c.episode.list_by_podcast(podcast.id):
+                print(f"\t{episode}")
+                async for comment in c.comment.list_by_episode(episode.id, "HOT"):
+                    print(f"\t\t{comment}")
+                    async for reply in c.reply.list_by_comment(comment.id, "SMART"):
+                        print(f"\t\t\t{reply}")
+                    break
+                break
             break
-        break
 
     await c.close()
 
