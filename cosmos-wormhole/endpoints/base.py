@@ -7,9 +7,12 @@ def json_to_entity[E](entity_class: Type[E], data: Any) -> E:
     return data if isinstance(data, entity_class) else entity_class(**data)
 
 
-class ListBase[E]:
+class Base[E]:
     entity_class: Type[E]
     endpoint: str
+
+
+class ListBase[E](Base[E]):
     list_suffix = "list"
     list_body: dict[str, str | int]
 
@@ -46,9 +49,7 @@ class ListBase[E]:
                 yield entity
 
 
-class GetBase[E]:
-    entity_class: Type[E]
-    endpoint: str
+class GetBase[E](Base[E]):
     get_suffix = "get"
     get_params_key: str
 
