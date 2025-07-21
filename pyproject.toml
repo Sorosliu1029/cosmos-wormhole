@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cosmos_wormhole"
+dynamic = ["version"]
+description = 'Cosmos Wormhole, Link Everything. 宇宙虫洞, 连接万物. <小宇宙App> API SDK'
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["xiaoyuzhou", "podcast", "小宇宙", "小宇宙API"]
+authors = [
+  { name = "Soros Liu", email = "soros.liu1029@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Framework :: AsyncIO",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Typing :: Typed"
+]
+dependencies = [
+  "httpx >= 0.28.0",
+  "qrcode >= 8.0"
+]
+
+[project.urls]
+# TODO: homepage and documentation
+Homepage = "https://example.com"
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/Sorosliu1029/cosmos-wormhole.git"
+Issues = "https://github.com/Sorosliu1029/cosmos-wormhole/issues"
+Changelog = "https://github.com/Sorosliu1029/cosmos-wormhole/blob/master/CHANGELOG.md"
+Source = "https://github.com/Sorosliu1029/cosmos-wormhole"
+
+[tool.hatch.version]
+path = "src/cosmos_wormhole/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/cosmos_wormhole tests}"
+
+[tool.coverage.run]
+source_pkgs = ["cosmos_wormhole", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/cosmos_wormhole/__about__.py",
+]
+
+[tool.coverage.paths]
+cosmos_wormhole = ["src/cosmos_wormhole", "*/cosmos_wormhole/src/cosmos_wormhole"]
+tests = ["tests", "*/cosmos_wormhole/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]

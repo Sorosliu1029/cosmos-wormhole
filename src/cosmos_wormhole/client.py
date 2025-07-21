@@ -4,10 +4,11 @@ import httpx
 from endpoints import *
 from managers import *
 
+from .__about__ import __version__
+
 
 class Client:
-    # TODO: read version
-    user_agent = "CosmosWormhole/0.0.1"
+    user_agent = f"CosmosWormhole/{__version__}"
     device_id = "cosmos-wormhole"
 
     def __init__(self, base_url: str = "https://api.xiaoyuzhoufm.com") -> None:
