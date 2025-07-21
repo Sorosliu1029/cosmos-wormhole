@@ -50,6 +50,7 @@ class Client:
         self.favorited_comment = FavoritedComment(self.client)
 
     async def close(self) -> None:
+        # TODO: catch ctrl-c signal
         await self.token_update_queue.join()
 
         tasks = [self.token_update_producer, self.token_update_consumer]
