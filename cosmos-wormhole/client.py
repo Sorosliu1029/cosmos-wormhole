@@ -28,6 +28,7 @@ class Client:
         self.podcast: Podcast
         self.inbox: Inbox
         self.profile: Profile
+        self.followee: Followee
 
     def _init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
@@ -38,6 +39,7 @@ class Client:
         self.podcast = Podcast(self.client)
         self.inbox = Inbox(self.client)
         self.profile = Profile(self.client)
+        self.followee = Followee(self.client)
 
     async def close(self) -> None:
         await self.token_update_queue.join()
@@ -142,6 +144,13 @@ async def main():
     if podcast_uid:
         podcaster = await c.profile.get(podcast_uid)
         print(podcaster)
+
+    cnt = 0
+    async for user in c.followee.list_following(my_profile.id):
+        print(user)
+        cnt += 1
+        if cnt >= 5:
+            break
 
     await c.close()
 

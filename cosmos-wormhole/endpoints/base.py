@@ -14,7 +14,7 @@ class Base[E]:
 
 class ListBase[E](Base[E]):
     list_suffix = "list"
-    list_body: dict[str, str | int]
+    list_body: dict[str, str | int] = {}
 
     def __init__(self, client: httpx.AsyncClient) -> None:
         self.client = client

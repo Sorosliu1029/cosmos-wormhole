@@ -1,0 +1,14 @@
+from typing import AsyncGenerator
+
+import entities
+
+from .base import ListBase
+
+
+class Followee(ListBase[entities.User]):
+    entity_class = entities.User
+    endpoint = "/v1/user-relation"
+    list_suffix = "list-following"
+
+    def list_following(self, user_id: str) -> AsyncGenerator[entities.User, None]:
+        return self.list({"uid": user_id})

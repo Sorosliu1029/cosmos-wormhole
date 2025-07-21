@@ -6,6 +6,7 @@ from .playlist import Playlist
 from .podcast import Podcast
 from .profile import Profile
 from .subscription import Subscription
+from .user_relation import Followee
 
 __all__ = [
     "Login",
@@ -17,4 +18,5 @@ __all__ = [
     "Podcast",
     "Inbox",
     "Profile",
+    "Followee",
 ]
