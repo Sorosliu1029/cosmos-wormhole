@@ -7540,8 +7540,713 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="%E5%AE%89%E8%A3%85">安装<a class="anchor-link" href="#%E5%AE%89%E8%A3%85">¶</a></h4><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cosmos-wormhole
+<h3 id="%E5%AE%89%E8%A3%85">安装<a class="anchor-link" href="#%E5%AE%89%E8%A3%85">¶</a></h3><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cosmos-wormhole
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b948db8d-bd7e-4023-8ce8-a59ff80bb836">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%E7%94%A8%E4%BE%8B">用例<a class="anchor-link" href="#%E7%94%A8%E4%BE%8B">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=30f87287-0042-40dd-8c30-f1c370889fba">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cosmos_wormhole</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d24b3404-4466-4014-aaab-164d11380375">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">login</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre style="line-height: 1;">打开小宇宙App，使用「发现」Tab - 搜索框右侧「扫一扫」登录
+PS: 小宇宙会提示登录「小宇宙主播后台」。主播后台和主App账号互通
+                                             
+                                             
+    █▀▀▀▀▀█ ▄▄▄ █▄▀▀▀▄ ▀██  █   █ █▀▀▀▀▀█    
+    █ ███ █ █ ▄█ █▄▄ ▄   █▀▄█▄▀█  █ ███ █    
+    █ ▀▀▀ █  ▄▄█▄▄▄ ▄█ ▀ █▄▀▄▄▀ █ █ ▀▀▀ █    
+    ▀▀▀▀▀▀▀ █ █ █▄█▄█▄█ ▀ ▀▄▀ ▀▄█ ▀▀▀▀▀▀▀    
+    ▀ ▄▄▄▄▀▄██ █ ▀  █ ▄▀ █▄█▄▀ ▄██▀ ▄███     
+      ▀▄ ▄▀ ▄▄▀ █▀ ▀▀ ▀█▄ █ ▄ ██▀ ▄▀▀▀▀▀█    
+    ▀ █▄▀ ▀▄▀▄ ▀ ▀▀██  ▄█▄ ▄█ ▄███▀█ ▄ ▄▀    
+    ▀▄██▄ ▀██ █▀ ▀ █▀ ▀  ▄█   ▀▀█▀▀█▀█▄▄█    
+    ▄▄ █▀ ▀ █▀▄▄ ▄█ ▄ ▀ ▀█▀█▄█▄█▄▀▀▄▀ ██     
+    ▀▀▀▄▄ ▀██▀▄██▀ ▄█ █▀ ▀▄▀▀ ▀▀▄▄█▀█▀▀ █    
+       █ ▄▀▄█▀▀█ █▄ ▀█▄▄▀ ▄▄▀▀██  ▀ █ █▄     
+    ▄▀▀▀█ ▀ ▄ █▄▀██▀██▄ █▀▄▄▀  ▀▀▄████  █    
+    █▀   ▀▀█ ▀█   ▀▀ ▀▄▀████▀▄█▄██▀  ▄  ▀    
+    █ ▄▄▀▀▀▄███  ▄ ▀█▀▀█  ▀▄█ ▄▀ ▀  █▄█▀█    
+    ▀ ▀▀ ▀▀▀▄▀▄█ █▀█▄▀▄██▄▀▄▀▀▀▀█▀▀▀█▀▀▀▀    
+    █▀▀▀▀▀█  ▀▄█   ▀█▀▀▀ ▄ ▀ ▀▀▄█ ▀ █  ▄█    
+    █ ███ █  ▄▀ ███▀ ▄▀ ███▄▀█ ▀███▀▀▄█ ▄    
+    █ ▀▀▀ █   ▀▀▄▀ ▄▄▀  ▀ █ █▀█▀█▀  ▄▀▀▀█    
+    ▀▀▀▀▀▀▀ ▀▀   ▀▀ ▀  ▀▀       ▀ ▀▀    ▀    
+                                             
+                                             
+二维码已被扫描，请在小宇宙App中确认登录。
+登录成功！
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c73477b2-3f3d-416f-9b5e-7a548cc2da75">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="1.-%E8%AE%A2%E9%98%85">1. 订阅<a class="anchor-link" href="#1.-%E8%AE%A2%E9%98%85">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3e12d33e-0f77-420d-b558-a88007c2abca">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">async</span> <span class="k">for</span> <span class="n">podcast</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">subscription</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"🎙️</span><span class="si">{</span><span class="n">podcast</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">podcast</span><span class="o">.</span><span class="n">title</span> <span class="o">==</span> <span class="s2">"史蒂夫说"</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">episode</span><span class="o">.</span><span class="n">list_by_podcast</span><span class="p">(</span><span class="n">podcast</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"🎧</span><span class="si">{</span><span class="n">episode</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">comment</span><span class="o">.</span><span class="n">list_by_episode</span><span class="p">(</span><span class="n">episode</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">"HOT"</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"💬</span><span class="si">{</span><span class="n">comment</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">async</span> <span class="k">for</span> <span class="n">reply</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">reply</span><span class="o">.</span><span class="n">list_by_comment</span><span class="p">(</span><span class="n">comment</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">"SMART"</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"↩️</span><span class="si">{</span><span class="n">reply</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">break</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>🎙️Podcast(pid=6278b07ad6e7a5551f799dd0, title=公司茶水间)
+🎙️Podcast(pid=65a625966d045a7f5e0b5640, title=不止金钱)
+🎙️Podcast(pid=625e7ba592a9f7a721b86d20, title=蜜獾吃书)
+🎙️Podcast(pid=5f4475a89504bbdb77b50bd0, title=最近买了什么书)
+🎙️Podcast(pid=5e2aaf88418a84a046546819, title=梁文道·八分)
+🎙️Podcast(pid=5e3bdf08418a84a046fb556c, title=大内密谈)
+🎙️Podcast(pid=64379296ff8a107611a67208, title=史蒂夫说)
+🎧Episode(eid=6874e0a193fd2d72b820959f, pid=64379296ff8a107611a67208, title=史蒂夫说432期 - 回信：不了解自己的人容易执着于肤浅的成败)
+💬Comment(id=687519a1e26a3567d425b549, text=挺认同steve给第一位时常抑郁和虚无的咨询者给的建议，脑子想根本不行的，还是需要从身体开始拯救自己，我也是时常这样，如果去练舞跳舞，就会好点)
+↩️Comment(id=6875af7944c4a5b6c470cf5e, text=11:47 是的，身体的正反馈对心理的康复有利。我游泳教练说很多老年人睡不着就来游泳，游完睡眠嘎嘎好😂。以及，有社交体验的运动会对心理恢复更好，即使每次只有很浅薄的small talk. 以及有些朴素的建议，抑郁了可以去干点体力活或做一些体力工作。从功利的角度来说，因为没时间想七想八，既可以消耗体力睡好觉，又可以拿钱。)
+↩️Comment(id=68751e852134314d913b5e61, text=ip正确，舞起来吧哈哈哈哈)
+↩️Comment(id=68770e5111d4f41403602567, text=同意..当很迷茫的时候，身体上的探索进步多多少少给了我一点正反馈让我不那么讨厌躺平的自己⋯，就算一点点。都至少给了我，人生还有能靠自己控制，生活是没那么坏的感受。)
+↩️Comment(id=6878d33d15d8379d4db3b764, text=是的，我也决定今年必须去游泳了！)
+↩️Comment(id=68763c58e8e669b5695d782e, text=很认同这个点，身体上的疲惫是最好的安眠药)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0fc9028e-8223-416b-80ae-61eb7d2f8d80">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="2.-%E8%8A%82%E7%9B%AE/%E5%8D%95%E9%9B%86">2. 节目/单集<a class="anchor-link" href="#2.-%E8%8A%82%E7%9B%AE/%E5%8D%95%E9%9B%86">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7251683b-fa5c-481a-a507-ba0944f1ca7a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">podcast</span> <span class="o">=</span> <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">podcast</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'5e280faa418a84a0461f9ad8'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">podcast</span><span class="p">)</span>
+<span class="n">episode</span> <span class="o">=</span> <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">episode</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'68776e08f01740ccc77a596b'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">episode</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Podcast(pid=5e280faa418a84a0461f9ad8, title=日谈公园)
+Episode(eid=68776e08f01740ccc77a596b, pid=5e280faa418a84a0461f9ad8, title=vol.719 请马伯庸亲自说说《长安的荔枝》的创作秘辛)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=19485247-7e13-4a23-b94c-2af0e5e32855">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="3.-%E8%8A%82%E7%9B%AE%E6%9B%B4%E6%96%B0">3. 节目更新<a class="anchor-link" href="#3.-%E8%8A%82%E7%9B%AE%E6%9B%B4%E6%96%B0">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4785ce07-580d-4a54-8638-0318e36d68be">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">inbox</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">episode</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Episode(eid=687ec6ff96cb2d71096ef22c, pid=5e4515bd418a84a046e2b11a, title=Vol.292 现代性与大屠杀：普通人与恶的距离有多远？)
+Episode(eid=687debb9a12f9ff06a3bcae5, pid=5e284c39418a84a046263d8a, title=vol.470 零基础Live Aid入门（上）)
+Episode(eid=687e6bd796cb2d710960fd68, pid=61933ace1b4320461e91fd55, title=127: 与真格戴雨森 25 AI 中场复盘：OpenAI的IMO金牌、Kimi K2翻盘、Agent普及和抢人大战)
+Episode(eid=687e538ca9dec9250073653d, pid=5e280faa418a84a0461f9ad8, title=vol.720 金世佳：我对不成功的人生充满感激（上）)
+Episode(eid=687dca72a9dec9250057d909, pid=5e2839ca418a84a0462431b7, title=圆桌会谈：炎炎夏日，我在泳池浴室寻找恶臭之源！)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f8e86a68-0c29-47f6-91c5-331d27909b31">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="4.-%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8">4. 播放列表<a class="anchor-link" href="#4.-%E6%92%AD%E6%94%BE%E5%88%97%E8%A1%A8">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=01ea2181-aba7-422e-bd7f-f763de11e90e">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">playlist</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">playlist</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">playlist</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>687ce8e4a9dec925003c8efd
+68787863a12f9ff06a9448f8
+683e851c38dcc57c644718eb
+6879df2da9dec92500e81fdf
+68776e08f01740ccc77a596b
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8a3f9a92-39b3-4e9b-89b4-fd24e99f9a6b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="5.-%E7%94%A8%E6%88%B7">5. 用户<a class="anchor-link" href="#5.-%E7%94%A8%E6%88%B7">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ba4029c9-ed92-4c6f-94bf-294552dc5962">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">my_profile</span> <span class="o">=</span> <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_profile</span><span class="p">)</span>
+<span class="n">podcaster</span> <span class="o">=</span> <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'5e82d3531bfbbc3dad854379'</span><span class="p">)</span> <span class="c1"># 《文化有限》主播 杨大壹</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">podcaster</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>User(uid=5e2987043419f408b3f7f23f, nickname=以太)
+User(uid=5e82d3531bfbbc3dad854379, nickname=杨大壹)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=774c92c6-8f9d-4607-82c8-ea6dad773108">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="6.-%E5%85%B3%E6%B3%A8">6. 关注<a class="anchor-link" href="#6.-%E5%85%B3%E6%B3%A8">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=825d122d-82f2-43df-b04b-5d10356fe971">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">followee</span><span class="o">.</span><span class="n">list_following</span><span class="p">(</span><span class="n">my_profile</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>User(uid=6045751fe0f5e723bb4aafbf, nickname=袁梦_Nina)
+User(uid=62f3b03eedce67104a074bf6, nickname=蒋寻)
+User(uid=60b861e2e0f5e723bbb4d9f6, nickname=妙雅的兔子)
+User(uid=5e808f0e1bfbbc3dad8419c9, nickname=免子队长油百万)
+User(uid=5e739699b3c5bca5f63af74b, nickname=Alissi)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e72ba22a-0f12-46eb-83c3-2accbfdfa8f0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="7.-%E7%B2%89%E4%B8%9D">7. 粉丝<a class="anchor-link" href="#7.-%E7%B2%89%E4%B8%9D">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=cfa11c0f-fb56-4c1a-af09-38bcc527a0e2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">follower</span><span class="o">.</span><span class="n">list_follower</span><span class="p">(</span><span class="n">my_profile</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>User(uid=62bdba2cedce67104aeef82e, nickname=磊一鸣)
+User(uid=64890337edce67104aafed32, nickname=言云星月area)
+User(uid=63c781efedce67104a897dfc, nickname=泡泡po33)
+User(uid=5eab8af59c735f9cf4eb3adb, nickname=废材少女幽香酱)
+User(uid=5fe13e59e0f5e723bb847302, nickname=歪歪爱学习)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7f9e0c76-81e9-4335-8b0e-84da4d489fb4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="8.-%E6%94%B6%E5%90%AC%E5%8E%86%E5%8F%B2">8. 收听历史<a class="anchor-link" href="#8.-%E6%94%B6%E5%90%AC%E5%8E%86%E5%8F%B2">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8da10ea5-0ad4-4c6f-ba81-9d640ae4ba97">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">episode</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Episode(eid=687ce8e4a9dec925003c8efd, pid=60de7c003dd577b40d5a40f3, title=布拉德·皮特银幕上演 F1 传奇，现实世界为何却少有美国车手？)
+Episode(eid=68787863a12f9ff06a9448f8, pid=65716792d6e0ff5822d25668, title=E26 你离用好定投这个武器，只差这一期内容！| 实操篇)
+Episode(eid=683e851c38dcc57c644718eb, pid=62382c1103bea1ebfffa1c00, title=No.153 📠 「史前」科技巨头四通与中关村教父 | 中国互联网故事1)
+Episode(eid=6879df2da9dec92500e81fdf, pid=5f912d9783c34e85ddd7e23d, title=179.身体已不是从前那个少年，however心还是。)
+Episode(eid=68776e08f01740ccc77a596b, pid=5e280faa418a84a0461f9ad8, title=vol.719 请马伯庸亲自说说《长安的荔枝》的创作秘辛)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=99a6fd8d-9156-4cc1-994f-aaeb71bdb22c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="9.-%E6%94%B6%E8%97%8F%E7%9A%84%E5%8D%95%E9%9B%86">9. 收藏的单集<a class="anchor-link" href="#9.-%E6%94%B6%E8%97%8F%E7%9A%84%E5%8D%95%E9%9B%86">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d612926d-1994-4a9d-bb02-94401fc46890">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">favorited_episode</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">episode</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Episode(eid=6626ece8db5f58a80d0d31db, pid=5e4515bd418a84a046e2b11a, title=Vol.227 世界读书日，跟143位主播共享一份书单)
+Episode(eid=66291d2cff598d65f202b6a1, pid=5e280faa418a84a0461f9ad8, title=vol.615 和纵横四海携隐Melody聊聊如何摆脱“时间贫困”)
+Episode(eid=6452e781b7b3c21b65ce4669, pid=6022a180ef5fdaddc30bb101, title=Vol.109 当今最重要的基础设施，在海底)
+Episode(eid=68776e08f01740ccc77a596b, pid=5e280faa418a84a0461f9ad8, title=vol.719 请马伯庸亲自说说《长安的荔枝》的创作秘辛)
+Episode(eid=6426bfd13f40bdefe7f4aaf7, pid=5e280fad418a84a0461fb38b, title=E714.「废物」作家自述：想过正常的有尊严的生活，怎么这么难)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f331d872-5108-48a9-b102-a303ac4b5419">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="10.-%E6%94%B6%E8%97%8F%E7%9A%84%E8%AF%84%E8%AE%BA">10. 收藏的评论<a class="anchor-link" href="#10.-%E6%94%B6%E8%97%8F%E7%9A%84%E8%AF%84%E8%AE%BA">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=16df8e3b-b2ee-430c-9a3f-292e67106455">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">favorited_comment</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Comment(id=635724ff0236bb00100d5aca, text=【萌二评论📑文化有限の合集，请接收！】
+🌠频道仪式
+🔗 https://www.xiaoyuzhoufm.com/episode/5e4515bd418a84a046e2b128 
+🔗 https://www.xiaoyuzhoufm.com/episode/6164c36ebcb2fee71fae4c24 
+🔗 https://www.xiaoyuzhoufm.com/episode/633b6a39a5d434d0ee91ba9f 
+🔗 https://www.xiaoyuzhoufm.com/episode/62e85c62472e726a52ecd888 
+🌠综合特缉
+🌸春日篇：
+🔗 https://www.xiaoyuzhoufm.com/episode/603d758f30638eea2cef9e2f 
+🏖夏日篇：
+🔗 https://www.xiaoyuzhoufm.com/episode/62b0fcb8ba5434fc2d660540 
+🍁秋日篇：
+🔗 https://www.xiaoyuzhoufm.com/episode/6328f4b63210b0e9e7708a52 
+🍾节日篇：春节+圣诞+万圣+感恩
+🔗 https://www.xiaoyuzhoufm.com/episode/61f86b2680651919bbdee145 
+🔗 https://www.xiaoyuzhoufm.com/episode/61ba74e7a7eccbe3918adf69 
+🔗 https://www.xiaoyuzhoufm.com/episode/6177395577a31cddee7b74ea 
+🔗 https://www.xiaoyuzhoufm.com/episode/5fbc4f9ddee9c1e16db222ba 
+🌠朗诵配乐
+🔗 https://www.xiaoyuzhoufm.com/episode/60da58b403c9bf1da959dd08 
+🔗 https://www.xiaoyuzhoufm.com/episode/62f196e803da6b049bdbeef7 
+🔗 https://www.xiaoyuzhoufm.com/episode/61e5f62aeffcbded188a717f 
+🌠读书写作
+🔗 https://www.xiaoyuzhoufm.com/episode/5f56ce8283c34e85dd275e4f 
+🔗 https://www.xiaoyuzhoufm.com/episode/5ec3bd68418a84a046a8fc24 
+🌠精准沟通
+🔗 https://www.xiaoyuzhoufm.com/episode/63322f7e120ae67f87490f03 
+🔗 https://www.xiaoyuzhoufm.com/episode/61b7d22c248ff750af64e1ee 
+🌠家庭亲子
+🔗 https://www.xiaoyuzhoufm.com/episode/62c371b595b30b04003c661f 
+🔗 https://www.xiaoyuzhoufm.com/episode/5e4515bd418a84a046e2b133 
+🔗 https://www.xiaoyuzhoufm.com/episode/6062612b3bdce47be7e06c36 
+🔗 https://www.xiaoyuzhoufm.com/episode/63040af7e72c1f7ae44e7258 
+🌠心理健康
+🔗 https://www.xiaoyuzhoufm.com/episode/611aeeef629a774bd842ec2d 
+🔗 https://www.xiaoyuzhoufm.com/episode/62141a78c8cea1e1315e52a0 
+🔗 https://www.xiaoyuzhoufm.com/episode/630d450dc69aabcde0f1b0d6)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ce876037-5711-4fd5-8eab-a148c2016c99">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="11.-%E6%90%9C%E7%B4%A2%E8%8A%82%E7%9B%AE">11. 搜索节目<a class="anchor-link" href="#11.-%E6%90%9C%E7%B4%A2%E8%8A%82%E7%9B%AE">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d9386e39-2dc1-491e-9eb6-4231aedab6f9">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">podcast</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">podcast_search</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"脱口秀"</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">podcast</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Podcast(pid=5e280fa7418a84a0461f912b, title=谐星聊天会)
+Podcast(pid=660840711519139e4f9699ef, title=小fool人)
+Podcast(pid=65bb55f6513a776b57dedb32, title=李诞)
+Podcast(pid=60e43cecc4e7c8188c2f92a4, title=正经叭叭)
+Podcast(pid=61791d921989541784257779, title=不开玩笑 Jokes Aside)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=66866ff2-0c47-49d5-b775-8b27c458e34b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="12.-%E6%90%9C%E7%B4%A2%E5%8D%95%E9%9B%86">12. 搜索单集<a class="anchor-link" href="#12.-%E6%90%9C%E7%B4%A2%E5%8D%95%E9%9B%86">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=04e33d66-05a9-4d26-8d5f-aaaa0e5898d0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">episode_search</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"2025"</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">episode</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Episode(eid=6873dcc11317e91f3d8f9ed8, pid=5e280fac418a84a0461fb129, title=vol.533 老友聊聊｜2025悄悄过半，再不总结真记不住啦！)
+Episode(eid=685f7c4608d8fd858666e5c5, pid=67b92c728671d63e927d8eee, title=单独系列 - 2025下半年经济和市场展望)
+Episode(eid=6819fac3d8d622bb801bd343, pid=61dd99a47b29652ff572257b, title=vol.127.年报季中的真实中国2025)
+Episode(eid=68498a63096eb0bc79503c69, pid=61dd99a47b29652ff572257b, title=132.当过度思考的打工人遇上低欲望的时代)
+Episode(eid=6853fc0db3d7fd80a40cb5ee, pid=5e2831ed418a84a046231c00, title=#Bonus  逃离德黑兰 2025：一个中国人的战火逃生记)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8baf14e9-0999-4f57-ad8d-0977a7244ecf">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="13.-%E6%90%9C%E7%B4%A2%E7%94%A8%E6%88%B7">13. 搜索用户<a class="anchor-link" href="#13.-%E6%90%9C%E7%B4%A2%E7%94%A8%E6%88%B7">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2a23fdeb-8032-4347-b3bc-d7fb2cec1dbf">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">user_search</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"七个梦"</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>User(uid=5e50e0e3e3edfc2abb066657, nickname=七个梦)
+User(uid=66097132edce67104a10aeaf, nickname=有七个梦)
+User(uid=60d74289e0f5e723bbefe494, nickname=第七个梦)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=94a0efad-fb51-44e6-8ba6-5a79d0a6af85">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="%E7%94%A8%E5%AE%8C%E5%90%8E%EF%BC%8C%E5%88%AB%E5%BF%98%E4%BA%86">用完后，别忘了<a class="anchor-link" href="#%E7%94%A8%E5%AE%8C%E5%90%8E%EF%BC%8C%E5%88%AB%E5%BF%98%E4%BA%86">¶</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3efe9873-cb3b-488a-b006-6aec02491e23">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
