@@ -35,9 +35,8 @@ dependencies = [
 ]
 
 [project.urls]
-# TODO: homepage and documentation
-Homepage = "https://example.com"
-Documentation = "https://readthedocs.org"
+Homepage = "https://cosmos-wormhole.sorosliu.xyz/"
+Documentation = "https://cosmos-wormhole.sorosliu.xyz/"
 Repository = "https://github.com/Sorosliu1029/cosmos-wormhole.git"
 Issues = "https://github.com/Sorosliu1029/cosmos-wormhole/issues"
 Changelog = "https://github.com/Sorosliu1029/cosmos-wormhole/blob/master/CHANGELOG.md"
