@@ -1,7 +1,6 @@
 from typing import AsyncGenerator
 
-import entities
-
+from .. import entities
 from .base import GetBase, ListBase
 
 

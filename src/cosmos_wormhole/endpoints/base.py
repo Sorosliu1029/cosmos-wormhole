@@ -11,18 +11,18 @@ class Base[E]:
     entity_class: Type[E]
     endpoint: str
 
+    def __init__(self, client: httpx.AsyncClient) -> None:
+        self.client = client
+
 
 class ListBase[E](Base[E]):
     list_suffix = "list"
     list_body: dict[str, str | int] = {}
 
-    def __init__(self, client: httpx.AsyncClient) -> None:
-        self.client = client
-
     def _extract_data(self, json_resp: dict) -> list[Any]:
         return json_resp.get("data", [])
 
-    async def _fetch_entities(
+    async def __fetch_entities(
         self, query: dict[str, Any] | None, load_more_key: Any
     ) -> tuple[list[E], Any]:
         resp = await self.client.post(
@@ -44,7 +44,7 @@ class ListBase[E](Base[E]):
     ) -> AsyncGenerator[E, None]:
         load_more_key = {}
         while load_more_key is not None:
-            entities, load_more_key = await self._fetch_entities(query, load_more_key)
+            entities, load_more_key = await self.__fetch_entities(query, load_more_key)
             for entity in entities:
                 yield entity
 
@@ -52,9 +52,6 @@ class ListBase[E](Base[E]):
 class GetBase[E](Base[E]):
     get_suffix = "get"
     get_params_key: str
-
-    def __init__(self, client: httpx.AsyncClient) -> None:
-        self.client = client
 
     async def get(self, entity_id: str | None = None) -> E:
         resp = await self.client.get(

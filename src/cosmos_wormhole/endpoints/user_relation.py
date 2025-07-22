@@ -1,7 +1,6 @@
 from typing import AsyncGenerator
 
-import entities
-
+from .. import entities
 from .base import ListBase
 
 
@@ -12,6 +11,7 @@ class Followee(ListBase[entities.User]):
 
     def list_following(self, user_id: str) -> AsyncGenerator[entities.User, None]:
         return self.list({"uid": user_id})
+
 
 class Follower(ListBase[entities.User]):
     entity_class = entities.User

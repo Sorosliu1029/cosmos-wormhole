@@ -2,7 +2,8 @@ import asyncio
 
 import httpx
 import qrcode
-from managers import Token
+
+from ..managers import Token
 
 
 class Login:
@@ -12,7 +13,7 @@ class Login:
         )
         self.id = None
 
-    async def _get_login_url(self) -> str:
+    async def __get_login_url(self) -> str:
         resp = await self.client.post(
             "/qrcode/create",
             json={"clientId": "podcaster-platform"},
@@ -22,7 +23,7 @@ class Login:
         self.id, url = data.values()
         return url
 
-    async def _check_login(self) -> tuple[str, str] | None:
+    async def __check_login(self) -> tuple[str, str] | None:
         resp = await self.client.post("/qrcode/login", json={"id": self.id})
         data = resp.raise_for_status().json()
         if data["status"] != "USED":
@@ -34,15 +35,15 @@ class Login:
         return (access_token, refresh_token)
 
     async def login(self) -> tuple[str, str]:
-        url = await self._get_login_url()
+        url = await self.__get_login_url()
         qr = qrcode.QRCode()
         qr.add_data(url)
         qr.print_tty()
 
-        headers = await self._check_login()
+        headers = await self.__check_login()
         while headers is None:
             await asyncio.sleep(1)
-            headers = await self._check_login()
+            headers = await self.__check_login()
 
         await self.client.aclose()
         return headers

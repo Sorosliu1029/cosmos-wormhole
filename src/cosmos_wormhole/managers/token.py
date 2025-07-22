@@ -50,6 +50,8 @@ class TokenManager:
             os.remove(self.token_path)
 
     async def refresh_token(self, client: httpx.AsyncClient) -> tuple[str, str]:
+        if not client.headers.get(Token.refresh_key):
+            return "", ""
         resp = await client.post("/app_auth_tokens.refresh")
         access_token = resp.headers.get(Token.access_key)
         refresh_token = resp.headers.get(Token.refresh_key)

@@ -1,9 +1,10 @@
 import asyncio
 
 import httpx
-from __about__ import __version__
-from endpoints import *
-from managers import *
+
+from .__about__ import __version__
+from .endpoints import *
+from .managers import *
 
 
 class Client:
@@ -16,9 +17,11 @@ class Client:
             headers={"user-agent": self.user_agent, "x-jike-device-id": self.device_id},
         )
         self.token_manager = TokenManager()
-        self._token_update_queue = asyncio.Queue(1)
-        self._token_update_producer: asyncio.Task
-        self._token_update_consumer: asyncio.Task
+        self.__token_update_queue = asyncio.Queue(1)
+        self.__token_update_producer: asyncio.Task
+        self.__token_update_consumer = asyncio.create_task(
+            self.__listen_on_token_update()
+        )
 
         self.subscription: Subscription
         self.episode: Episode
@@ -37,7 +40,26 @@ class Client:
         self.episode_search: EpisodeSearch
         self.user_search: UserSearch
 
-    def _init_endpoints(self) -> None:
+    async def __listen_on_token_update(self) -> None:
+        try:
+            while True:
+                access_token, refresh_token = await self.__token_update_queue.get()
+                self.__update_token(access_token, refresh_token)
+                self.__token_update_queue.task_done()
+        except asyncio.CancelledError:
+            pass
+
+    def __update_token(self, access_token: str, refresh_token: str) -> None:
+        if not access_token or not refresh_token:
+            raise ValueError("Access token and refresh token cannot be empty.")
+        self.token_manager.save_token(
+            access_token=access_token, refresh_token=refresh_token
+        )
+        self.client.headers.update(
+            {Token.access_key: access_token, Token.refresh_key: refresh_token}
+        )
+
+    def __init_endpoints(self) -> None:
         self.subscription = Subscription(self.client)
         self.episode = Episode(self.client)
         self.comment = Comment(self.client)
@@ -56,9 +78,9 @@ class Client:
         self.user_search = UserSearch(self.client)
 
     async def close(self) -> None:
-        await self._token_update_queue.join()
+        await self.__token_update_queue.join()
 
-        tasks = [self.token_update_producer, self.token_update_consumer]
+        tasks = [self.__token_update_producer, self.__token_update_consumer]
         for task in tasks:
             if task and not task.done():
                 task.cancel()
@@ -66,16 +88,6 @@ class Client:
         await asyncio.gather(*tasks, return_exceptions=True)
 
         await self.client.aclose()
-
-    def _update_token(self, access_token: str, refresh_token: str) -> None:
-        if not access_token or not refresh_token:
-            raise ValueError("Access token and refresh token cannot be empty.")
-        self.token_manager.save_token(
-            access_token=access_token, refresh_token=refresh_token
-        )
-        self.client.headers.update(
-            {Token.access_key: access_token, Token.refresh_key: refresh_token}
-        )
 
     async def login(self) -> None:
         headers = self.token_manager.get_token()
@@ -86,158 +98,20 @@ class Client:
             or not headers.get(Token.refresh_key)
         ):  # first time or no token stored or token invalid, try to login
             access_token, refresh_token = await Login().login()
-            self._update_token(access_token, refresh_token)
+            self.__update_token(access_token, refresh_token)
         else:  # refresh tokens in case of access token expired
             self.client.headers.update(headers)
             access_token, refresh_token = await self.token_manager.refresh_token(
                 self.client
             )
-            self._update_token(access_token, refresh_token)
+            self.__update_token(access_token, refresh_token)
 
-        self._after_login()
+        self.__after_login()
 
-    def _after_login(self) -> None:
-        self.token_update_producer = asyncio.create_task(
+    def __after_login(self) -> None:
+        self.__token_update_producer = asyncio.create_task(
             self.token_manager.periodic_refresh_token(
-                self.client, 60 * 20, self._token_update_queue
+                self.client, 60 * 20, self.__token_update_queue
             )  # every 20 minutes
         )
-        self.token_update_consumer = asyncio.create_task(self._listen_on_token_update())
-        self._init_endpoints()
-
-    async def _listen_on_token_update(self) -> None:
-        try:
-            while True:
-                access_token, refresh_token = await self._token_update_queue.get()
-                self._update_token(access_token, refresh_token)
-                self._token_update_queue.task_done()
-        except asyncio.CancelledError:
-            pass
-
-
-async def main():
-    c = Client()
-    await c.login()
-
-    print("1. Subscription:")
-    pid = None
-    eid = None
-    podcast_uid = None
-    async for podcast in c.subscription.list():
-        print(podcast)
-        if podcast.title == "史蒂夫说":
-            pid = podcast.id
-            podcast_uid = podcast.podcasters[0].id if podcast.podcasters else None
-            async for episode in c.episode.list_by_podcast(podcast.id):
-                print(f"\t{episode}")
-                eid = episode.id
-                async for comment in c.comment.list_by_episode(episode.id, "HOT"):
-                    print(f"\t\t{comment}")
-                    async for reply in c.reply.list_by_comment(comment.id, "SMART"):
-                        print(f"\t\t\t{reply}")
-                    break
-                break
-            break
-
-    print("2. Podcaast/Episode get:")
-    if pid:
-        podcast = await c.podcast.get(pid)
-        print(podcast)
-    if eid:
-        episode = await c.episode.get(eid)
-        print(episode)
-
-    print("3. Inbox:")
-    cnt = 0
-    async for episode in c.inbox.list():
-        print(episode)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("4. Playlist:")
-    cnt = 0
-    async for playlist in c.playlist.list():
-        print(playlist)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("5. Profile:")
-    my_profile = await c.profile.get()
-    print(my_profile)
-
-    if podcast_uid:
-        print("5.1 Podcaster Profile:")
-        podcaster = await c.profile.get(podcast_uid)
-        print(podcaster)
-
-    print("6. Followee:")
-    cnt = 0
-    async for user in c.followee.list_following(my_profile.id):
-        print(user)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("7. Follower:")
-    cnt = 0
-    async for user in c.follower.list_follower(my_profile.id):
-        print(user)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("8. History:")
-    cnt = 0
-    async for episode in c.history.list():
-        print(episode)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("9. Favorited Episode:")
-    cnt = 0
-    async for episode in c.favorited_episode.list():
-        print(episode)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("10. Favorited Comment:")
-    cnt = 0
-    async for comment in c.favorited_comment.list():
-        print(comment)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("11. Podcast Search:")
-    cnt = 0
-    async for podcast in c.podcast_search.search("即刻"):
-        print(podcast)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("12. Episode Search:")
-    cnt = 0
-    async for episode in c.episode_search.search("小宇宙"):
-        print(episode)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    print("13. User Search:")
-    cnt = 0
-    async for user in c.user_search.search("播客"):
-        print(user)
-        cnt += 1
-        if cnt >= 5:
-            break
-
-    await c.close()
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+        self.__init_endpoints()

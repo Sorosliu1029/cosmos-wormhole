@@ -1,5 +1,4 @@
-import entities
-
+from .. import entities
 from .base import ListBase
 
 
